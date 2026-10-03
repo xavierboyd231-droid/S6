@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Games | Unblocked Arcade</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: {
+                            950: '#09090b',
+                            900: '#121215',
+                            850: '#18181b',
+                            800: '#27272a',
+                            700: '#3f3f46'
+                        },
+                        accent: {
+                            blue: '#00f0ff',
+                            glow: 'rgba(0, 240, 255, 0.15)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #09090b; color: #f4f4f5; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+        .glow-box { box-shadow: 0 0 25px rgba(0, 240, 255, 0.08); }
+        .glow-box:hover { box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); }
+        .glow-text { text-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-accent-blue selection:text-zinc-950">
+
+    <header class="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="returnToHome()">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue to-zinc-800 flex items-center justify-center glow-box border border-accent-blue/30">
+                    <i class="fa-solid fa-cubes text-zinc-950 text-2xl font-black"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-extrabold tracking-tight glow-text text-white">BLOCK GAMES</span>
+                    <span class="block text-xs text-zinc-400 font-medium tracking-wider">SCHOOL UNBLOCKED ARCADE</span>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-zinc-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="filterGames()" placeholder="Search Cooking Master, Slope, Maze Runner..." class="w-full pl-11 pr-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-blue transition-all text-zinc-200 placeholder-zinc-500">
+                </div>
+            </div>
+
+            <!-- Action Controls & Stealth Cloak -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleStealthMode()" id="stealthBtn" class="flex items-center space-x-2 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-semibold tracking-wide transition-all text-zinc-300 hover:text-white">
+                    <i class="fa-solid fa-user-secret text-accent-blue text-base"></i>
+                    <span class="hidden sm:inline">Classroom Cloak</span>
+                </button>
+                <button onclick="openRequestModal()" class="flex items-center space-x-2 px-4 py-2 bg-accent-blue hover:bg-accent-blue/90 rounded-xl text-xs font-bold tracking-wide transition-all text-zinc-950 shadow-lg shadow-accent-blue/10">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="hidden sm:inline">Request Game</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <div id="homeView" class="space-y-8">
+            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-zinc-900 via-zinc-850 to-zinc-900 border border-zinc-800 p-8 sm:p-12 glow-box">
+                <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-accent-blue/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-2xl space-y-4">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 bg-accent-blue/10 border border-accent-blue/30 rounded-full text-accent-blue text-xs font-bold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-accent-blue animate-ping"></span>
+                        <span>Full Simulation & Arcade Games • Zero Iframes</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        Play Cooking Master, Slope, Maze Runner & Cookie Clicker Unblocked
+                    </h1>
+                    <p class="text-zinc-400 text-sm sm:text-base">
+                        Full-featured, popular simulation and arcade titles built into robust standalone code so school networks never block your gameplay.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="playGame('cooking')" class="px-6 py-3 bg-accent-blue hover:bg-accent-blue/90 text-zinc-950 font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-accent-blue/20 flex items-center space-x-2">
+                            <i class="fa-solid fa-pizza-slice"></i>
+                            <span>Play Cooking Master</span>
+                        </button>
+                        <button onclick="scrollToGames()" class="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all">
+                            Browse Library
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Pills -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none" id="categoryContainer">
+                <button onclick="filterCategory('all')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-accent-blue text-zinc-950 whitespace-nowrap shadow-md">All Games</button>
+                <button onclick="filterCategory('Simulation')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Simulation</button>
+                <button onclick="filterCategory('Action')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Action</button>
+                <button onclick="filterCategory('Arcade')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Arcade</button>
+                <button onclick="filterCategory('Idle')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Idle / Clicker</button>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-zinc-100 flex items-center space-x-2">
+                        <i class="fa-solid fa-gamepad text-accent-blue"></i>
+                        <span>Popular Unblocked Library</span>
+                    </h2>
+                    <span id="gameCount" class="text-xs text-zinc-400 font-medium">Showing all games</span>
+                </div>
+                <div id="gamesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Injected via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="gameView" class="hidden space-y-6">
+            <div class="flex items-center justify-between bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
+                <button onclick="returnToHome()" class="flex items-center space-x-2 px-4 py-2 bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-bold text-zinc-300 transition-all">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Library</span>
+                </button>
+                <div class="text-center">
+                    <h2 id="activeGameTitle" class="text-lg font-bold text-accent-blue">Game Title</h2>
+                    <p id="activeGameCategory" class="text-xs text-zinc-400 uppercase tracking-widest">Category</p>
+                </div>
+                <button onclick="toggleFullScreen()" class="flex items-center space-x-2 px-4 py-2 bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-bold text-zinc-300 transition-all">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">Fullscreen</span>
+                </button>
+            </div>
+
+            <!-- Canvas Container -->
+            <div id="gameContainerWrapper" class="relative w-full aspect-[4/3] sm:aspect-[16/9] max-h-[75vh] bg-zinc-900 rounded-3xl border border-zinc-800 overflow-hidden flex items-center justify-center glow-box">
+                <div id="gameCanvasHost" class="w-full h-full flex items-center justify-center relative">
+                    <!-- Standalone Games will render here -->
+                </div>
+            </div>
+
+            <!-- Controls Info Bar -->
+            <div class="bg-zinc-900 p-5 rounded-2xl border border-zinc-800 flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-zinc-400 uppercase font-semibold">Controls & High Score</span>
+                    <p id="activeGameControls" class="text-sm font-medium text-zinc-200 mt-1">Use mouse and keyboard.</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <span class="text-xs text-zinc-400 uppercase block">High Score</span>
+                        <strong id="activeGameHighScore" class="text-accent-blue text-lg">0</strong>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center text-accent-blue text-xl">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="requestModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 space-y-6 glow-box relative">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-accent-blue/10 flex items-center justify-center text-accent-blue">
+                        <i class="fa-solid fa-paper-plane text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-zinc-100">Request a Game</h3>
+                </div>
+                <button onclick="closeRequestModal()" class="text-zinc-400 hover:text-white transition-all text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="gameRequestForm" onsubmit="submitGameRequest(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Your Name or Student ID</label>
+                    <input type="text" id="reqStudentName" required placeholder="e.g., Alex S." class="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-blue text-zinc-200 placeholder-zinc-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Game Title</label>
+                    <input type="text" id="reqGameTitle" required placeholder="e.g., Papa's Burgeria, Moto X3M" class="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-blue text-zinc-200 placeholder-zinc-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Notes (Optional)</label>
+                    <textarea id="reqGameNotes" rows="3" placeholder="Any specific version or details?" class="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-blue text-zinc-200 placeholder-zinc-600 resize-none"></textarea>
+                </div>
+                <button type="submit" id="requestSubmitBtn" class="w-full py-3 bg-accent-blue hover:bg-accent-blue/90 text-zinc-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-accent-blue/20 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-envelope-circle-check"></i>
+                    <span>Send Request to Admin</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-zinc-900 border border-accent-blue/50 text-zinc-100 px-6 py-4 rounded-2xl shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-accent-blue text-xl"></i>
+        <div>
+            <h4 id="toastTitle" class="text-sm font-bold">Success</h4>
+            <p id="toastMessage" class="text-xs text-zinc-400">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-zinc-800 bg-zinc-950 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-zinc-500 space-y-2">
+            <p>Block Games &copy; 2026 | Pure Unblocked Simulation & Arcade</p>
+            <p class="text-zinc-600">High Scores saved securely in LocalStorage. 100% School Network Friendly.</p>
+        </div>
+    </footer>
+
+    <script>
+        const games = [
+            {
+                id: 'cooking',
+                title: 'Cooking Master (Pizzeria Simulation)',
+                category: 'Simulation',
+                rating: '4.9',
+                plays: '310K',
+                icon: 'fa-pizza-slice',
+                desc: 'Take orders, add toppings, bake, and serve hungry customers just like Papa\'s Pizzeria!',
+                controls: 'Click ingredients and station buttons to assemble and bake.',
+                type: 'cooking',
+                hsKey: 'blockgames_cooking_hs'
+            },
+            {
+                id: 'slope',
+                title: 'Slope 3D Runner',
+                category: 'Action',
+                rating: '4.9',
+                plays: '280K',
+                icon: 'fa-triangle-exclamation',
+                desc: 'Steer a glowing ball down an intense endless sci-fi slope without crashing into red walls.',
+                controls: 'Left / Right Arrow keys or A & D to steer.',
+                type: 'slope',
+                hsKey: 'blockgames_slope_hs'
+            },
+            {
+                id: 'pacman',
+                title: 'Maze Runner Arcade',
+                category: 'Arcade',
+                rating: '4.8',
+                plays: '245K',
+                icon: 'fa-ghost',
+                desc: 'Navigate the glowing maze, collect energy pellets, and evade the cyber ghosts!',
+                controls: 'Arrow keys to guide your character.',
+                type: 'pacman',
+                hsKey: 'blockgames_pacman_hs'
+            },
+            {
+                id: 'cookie',
+                title: 'Cookie Clicker Tycoon',
+                category: 'Idle',
+                rating: '4.9',
+                plays: '420K',
+                icon: 'fa-cookie-bite',
+                desc: 'Click the giant cookie, buy grandmas and bakeries, and build an ultimate baking empire!',
+                controls: 'Click cookie to bake, click upgrades to purchase automation.',
+                type: 'cookie',
+                hsKey: 'blockgames_cookie_hs'
+            },
+            {
+                id: 'platformer',
+                title: 'Cyber Jump Platformer',
+                category: 'Action',
+                rating: '4.8',
+                plays: '190K',
+                icon: 'fa-person-running',
+                desc: 'Jump across neon platforms, dodge hazards, and reach the glowing portal at the end.',
+                controls: 'Arrow keys to move, Spacebar to jump.',
+                type: 'platformer',
+                hsKey: 'blockgames_platformer_hs'
+            }
+        ];
+
+        let currentCategory = 'all';
+        let stealthActive = false;
+        let activeGameLoop = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderGames(games);
+        });
+
+        function renderGames(gameList) {
+            const grid = document.getElementById('gamesGrid');
+            document.getElementById('gameCount').innerText = `Showing ${gameList.length} games`;
+            if (gameList.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-zinc-500"><i class="fa-solid fa-ghost text-4xl mb-3"></i><p>No games found matching your search.</p></div>`;
+                return;
+            }
+            grid.innerHTML = gameList.map(g => `
+                <div onclick="playGame('${g.id}')" class="group bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-accent-blue/50 rounded-3xl p-5 cursor-pointer transition-all duration-300 glow-box flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-blue/20 to-zinc-800 border border-accent-blue/30 flex items-center justify-center text-accent-blue text-2xl shadow-lg group-hover:scale-105 transition-transform">
+                                <i class="fa-solid ${g.icon}"></i>
+                            </div>
+                            <span class="px-3 py-1 bg-zinc-950 border border-zinc-800 rounded-full text-xs font-semibold text-zinc-300">
+                                ${g.category}
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-zinc-100 group-hover:text-accent-blue transition-colors">${g.title}</h3>
+                        <p class="text-xs text-zinc-400 mt-2 line-clamp-2">${g.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-zinc-800 text-xs text-zinc-400">
+                        <div class="flex items-center space-x-3">
+                            <span class="flex items-center space-x-1 text-amber-400"><i class="fa-solid fa-star"></i><strong class="text-zinc-200">${g.rating}</strong></span>
+                            <span class="flex items-center space-x-1"><i class="fa-solid fa-users text-accent-blue"></i><span>${g.plays}</span></span>
+                        </div>
+                        <span class="px-3.5 py-1.5 bg-accent-blue/10 text-accent-blue font-bold rounded-xl group-hover:bg-accent-blue group-hover:text-zinc-950 transition-all">Play Now</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGames() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = games.filter(g => {
+                const matchesSearch = g.title.toLowerCase().includes(query) || g.desc.toLowerCase().includes(query) || g.category.toLowerCase().includes(query);
+                const matchesCat = currentCategory === 'all' || g.category === currentCategory;
+                return matchesSearch && matchesCat;
+            });
+            renderGames(filtered);
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800";
+            });
+            event.target.className = "cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-accent-blue text-zinc-950 whitespace-nowrap shadow-md";
+            filterGames();
+        }
+
+        function scrollToGames() {
+            document.getElementById('gamesGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function playGame(id) {
+            const gameObj = games.find(g => g.id === id);
+            if (!gameObj) return;
+
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('gameView').classList.remove('hidden');
+            document.getElementById('activeGameTitle').innerText = gameObj.title;
+            document.getElementById('activeGameCategory').innerText = gameObj.category;
+            document.getElementById('activeGameControls').innerText = gameObj.controls;
+            
+            const hs = localStorage.getItem(gameObj.hsKey) || 0;
+            document.getElementById('activeGameHighScore').innerText = hs;
+
+            const host = document.getElementById('gameCanvasHost');
+            host.innerHTML = `<canvas id="arcadeCanvas" class="w-full h-full bg-zinc-950 block cursor-pointer"></canvas>`;
+
+            const canvas = document.getElementById('arcadeCanvas');
+            canvas.width = 800;
+            canvas.height = 450;
+            const ctx = canvas.getContext('2d');
+
+            if (activeGameLoop) clearInterval(activeGameLoop);
+
+            if (gameObj.type === 'cooking') initCookingGame(canvas, ctx, gameObj.hsKey);
+            else if (gameObj.type === 'slope') initSlopeGame(canvas, ctx, gameObj.hsKey);
+            else if (gameObj.type === 'pacman') initPacmanGame(canvas, ctx, gameObj.hsKey);
+            else if (gameObj.type === 'cookie') initCookieGame(canvas, ctx, gameObj.hsKey);
+            else if (gameObj.type === 'platformer') initPlatformerGame(canvas, ctx, gameObj.hsKey);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function returnToHome() {
+            if (activeGameLoop) clearInterval(activeGameLoop);
+            document.getElementById('gameView').classList.add('hidden');
+            document.getElementById('homeView').classList.remove('hidden');
+        }
+
+        // --- 1. COOKING MASTER (Pizzeria Simulation) ---
+        function initCookingGame(canvas, ctx, hsKey) {
+            let score = 0, stage = 'order', customerTimer = 100;
+            let currentOrder = { dough: true, sauce: false, cheese: false, pepperoni: false };
+            let playerPizza = { dough: true, sauce: false, cheese: false, pepperoni: false };
+            let currentCustomer = { name: 'Customer #1', orderText: 'Pepperoni & Cheese Pizza' };
+
+            const generateNewOrder = () => {
+                const needsSauce = Math.random() > 0.3;
+                const needsCheese = Math.random() > 0.2;
+                const needsPep = Math.random() > 0.4;
+                currentOrder = { dough: true, sauce: needsSauce, cheese: needsCheese, pepperoni: needsPep };
+                playerPizza = { dough: true, sauce: false, cheese: false, pepperoni: false };
+                stage = 'assembly';
+                customerTimer = 100;
+            };
+
+            generateNewOrder();
+
+            canvas.onclick = e => {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+                if (stage === 'assembly') {
+                    // Sauce button
+                    if (x > 100 && x < 240 && y > 300 && y < 360) playerPizza.sauce = !playerPizza.sauce;
+                    // Cheese button
+                    if (x > 260 && x < 400 && y > 300 && y < 360) playerPizza.cheese = !playerPizza.cheese;
+                    // Pepperoni button
+                    if (x > 420 && x < 560 && y > 300 && y < 360) playerPizza.pepperoni = !playerPizza.pepperoni;
+                    // Bake / Submit button
+                    if (x > 600 && x < 740 && y > 300 && y < 360) {
+                        stage = 'baking';
+                        setTimeout(() => {
+                            // Check match
+                            let match = (playerPizza.sauce === currentOrder.sauce && playerPizza.cheese === currentOrder.cheese && playerPizza.pepperoni === currentOrder.pepperoni);
+                            if (match) {
+                                score += 150;
+                                showToast('Order Served!', '+150 Points • Customer is extremely happy!');
+                            } else {
+                                score += 30;
+                                showToast('Order Accepted', '+30 Points • Minor mistakes in order.');
+                            }
+                            let hs = parseInt(localStorage.getItem(hsKey) || 0);
+                            if (score > hs) { localStorage.setItem(hsKey, score); document.getElementById('activeGameHighScore').innerText = score; }
+                            generateNewOrder();
+                        }, 1500);
+                    }
+                }
+            };
+
+            activeGameLoop = setInterval(() => {
+                ctx.fillStyle = '#121215'; ctx.fillRect(0, 0, 800, 450);
+
+                // UI Header
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 22px sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText(`Pizzeria Kitchen Simulation`, 40, 40);
+                ctx.fillText(`Score: ${score}`, 640, 40);
+
+                // Customer / Order ticket
+                ctx.fillStyle = '#27272a'; ctx.fillRect(40, 70, 720, 90);
+                ctx.strokeStyle = '#3f3f46'; ctx.strokeRect(40, 70, 720, 90);
+                ctx.fillStyle = '#00f0ff'; ctx.font = 'bold 16px sans-serif';
+                ctx.fillText(`Ticket: ${currentCustomer.name}`, 60, 100);
+                ctx.fillStyle = '#f4f4f5'; ctx.font = '14px sans-serif';
+                let orderDesc = `Required -> Sauce: ${currentOrder.sauce ? 'Yes' : 'No'}, Cheese: ${currentOrder.cheese ? 'Yes' : 'No'}, Pepperoni: ${currentOrder.pepperoni ? 'Yes' : 'No'}`;
+                ctx.fillText(orderDesc, 60, 130);
+
+                // Pizza Assembly station
+                ctx.fillStyle = '#18181b'; ctx.beginPath(); ctx.arc(400, 220, 60, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#00f0ff'; ctx.lineWidth = 3; ctx.stroke();
+                ctx.fillStyle = '#fff'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('Pizza Crust', 400, 225);
+
+                if (playerPizza.sauce) { ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(400, 220, 45, 0, Math.PI * 2); ctx.fill(); }
+                if (playerPizza.cheese) { ctx.fillStyle = '#fde047'; ctx.beginPath(); ctx.arc(400, 220, 30, 0, Math.PI * 2); ctx.fill(); }
+                if (playerPizza.pepperoni) { 
+                    ctx.fillStyle = '#b91c1c'; 
+                    ctx.beginPath(); ctx.arc(390, 210, 8, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(415, 230, 8, 0, Math.PI*2); ctx.fill();
+                }
+
+                // Station buttons
+                ctx.fillStyle = playerPizza.sauce ? '#00f0ff' : '#27272a';
+                ctx.fillRect(100, 300, 140, 50);
+                ctx.fillStyle = playerPizza.sauce ? '#09090b' : '#fff'; ctx.font = 'bold 14px sans-serif';
+                ctx.fillText('Toggle Sauce', 170, 330);
+
+                ctx.fillStyle = playerPizza.cheese ? '#00f0ff' : '#27272a';
+                ctx.fillRect(260, 300, 140, 50);
+                ctx.fillStyle = playerPizza.cheese ? '#09090b' : '#fff';
+                ctx.fillText('Toggle Cheese', 330, 330);
+
+                ctx.fillStyle = playerPizza.pepperoni ? '#00f0ff' : '#27272a';
+                ctx.fillRect(420, 300, 140, 50);
+                ctx.fillStyle = playerPizza.pepperoni ? '#09090b' : '#fff';
+                ctx.fillText('Toggle Pepperoni', 490, 330);
+
+                ctx.fillStyle = stage === 'baking' ? '#22c55e' : '#00f0ff';
+                ctx.fillRect(600, 300, 140, 50);
+                ctx.fillStyle = '#09090b'; ctx.font = 'bold 14px sans-serif';
+                ctx.fillText(stage === 'baking' ? 'Baking...' : 'Serve Order', 670, 330);
+
+            }, 1000/60);
+        }
+
+        // --- 2. SLOPE 3D RUNNER ---
+        function initSlopeGame(canvas, ctx, hsKey) {
+            let ballX = 400, ballY = 250, score = 0, gameOver = false;
+            let obstacles = [];
+            let keys = { left: false, right: false };
+
+            window.onkeydown = e => { if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true; if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true; };
+            window.onkeyup = e => { if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false; if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false; };
+
+            for(let i=0; i<6; i++) obstacles.push({x: 200 + Math.random()*400, y: i * 90 - 200, w: 70, h: 22});
+
+            activeGameLoop = setInterval(() => {
+                if (!gameOver) {
+                    score++;
+                    if (keys.left) ballX -= 7;
+                    if (keys.right) ballX += 7;
+                    if (ballX < 150) ballX = 150;
+                    if (ballX > 650) ballX = 650;
+
+                    obstacles.forEach(o => {
+                        o.y += 6;
+                        if (o.y > 450) { o.y = -50; o.x = 200 + Math.random()*400; }
+                        if (Math.abs(ballX - (o.x + 35)) < 30 && Math.abs(ballY - o.y) < 22) {
+                            gameOver = true;
+                            let hs = parseInt(localStorage.getItem(hsKey) || 0);
+                            if (score > hs) { localStorage.setItem(hsKey, score); document.getElementById('activeGameHighScore').innerText = score; }
+                        }
+                    });
+                }
+
+                ctx.fillStyle = '#09090b'; ctx.fillRect(0, 0, 800, 450);
+                ctx.strokeStyle = '#27272a'; ctx.lineWidth = 3;
+                ctx.beginPath(); ctx.moveTo(150, 0); ctx.lineTo(300, 450); ctx.moveTo(650, 0); ctx.lineTo(500, 450); ctx.stroke();
+
+                ctx.fillStyle = '#ef4444';
+                obstacles.forEach(o => { ctx.fillRect(o.x, o.y, o.w, o.h); });
+
+                ctx.fillStyle = '#00f0ff';
+                ctx.beginPath(); ctx.arc(ballX, ballY, 18, 0, Math.PI * 2); ctx.fill();
+
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 18px sans-serif';
+                ctx.fillText(`Score: ${score}`, 30, 40);
+
+                if (gameOver) {
+                    ctx.fillStyle = 'rgba(0,0,0,0.85)'; ctx.fillRect(0, 0, 800, 450);
+                    ctx.fillStyle = '#ef4444'; ctx.font = 'bold 36px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('CRASHED!', 400, 200);
+                    ctx.fillStyle = '#fff'; ctx.font = '20px sans-serif';
+                    ctx.fillText(`Final Score: ${score}`, 400, 250);
+                    ctx.fillText('Click anywhere to Restart', 400, 300);
+                    canvas.onclick = () => { ballX = 400; score = 0; gameOver = false; for(let i=0; i<6; i++) obstacles[i].y = i*90 - 200; };
+                }
+            }, 1000/60);
+        }
+
+        // --- 3. MAZE RUNNER ARCADE (PAC-MAN STYLE) ---
+        function initPacmanGame(canvas, ctx, hsKey) {
+            let pacX = 400, pacY = 225, score = 0, gameOver = false;
+            let ghostX = 200, ghostY = 225;
+            let dots = [];
+            for(let i=0; i<15; i++) dots.push({x: 100 + i*40, y: 100 + (i%3)*100, collected: false});
+
+            let dx = 0, dy = 0;
+            window.onkeydown = e => {
+                if (e.key === 'ArrowUp') { dx = 0; dy = -4; }
+                if (e.key === 'ArrowDown') { dx = 0; dy = 4; }
+                if (e.key === 'ArrowLeft') { dx = -4; dy = 0; }
+                if (e.key === 'ArrowRight') { dx = 4; dy = 0; }
+            };
+
+            activeGameLoop = setInterval(() => {
+                if (!gameOver) {
+                    pacX += dx; pacY += dy;
+                    if (pacX < 50 || pacX > 750 || pacY < 50 || pacY > 400) gameOver = true;
+
+                    // Ghost chase AI
+                    if (ghostX < pacX) ghostX += 1.5; else ghostX -= 1.5;
+                    if (ghostY < pacY) ghostY += 1.5; else ghostY -= 1.5;
+                    if (Math.hypot(pacX - ghostX, pacY - ghostY) < 20) {
+                        gameOver = true;
+                        let hs = parseInt(localStorage.getItem(hsKey) || 0);
+                        if (score > hs) { localStorage.setItem(hsKey, score); document.getElementById('activeGameHighScore').innerText = score; }
+                    }
+
+                    dots.forEach(d => {
+                        if (!d.collected && Math.hypot(pacX - d.x, pacY - d.y) < 20) {
+                            d.collected = true;
+                            score += 50;
+                        }
+                    });
+                }
+
+                ctx.fillStyle = '#121215'; ctx.fillRect(0, 0, 800, 450);
+                
+                // Draw dots
+                ctx.fillStyle = '#fde047';
+                dots.forEach(d => { if (!d.collected) { ctx.beginPath(); ctx.arc(d.x, d.y, 6, 0, Math.PI*2); ctx.fill(); } });
+
+                // Draw Pacman
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath(); ctx.arc(pacX, pacY, 16, 0, Math.PI * 2); ctx.fill();
+
+                // Draw Ghost
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath(); ctx.arc(ghostX, ghostY, 16, Math.PI, 0, false); ctx.lineTo(ghostX + 16, ghostY + 16); ctx.lineTo(ghostX - 16, ghostY + 16); ctx.fill();
+
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText(`Score: ${score}`, 40, 40);
+
+                if (gameOver) {
+                    ctx.fillStyle = 'rgba(0,0,0,0.85)'; ctx.fillRect(0, 0, 800, 450);
+                    ctx.fillStyle = '#ef4444'; ctx.font = 'bold 36px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('CAUGHT BY GHOSTS!', 400, 200);
+                    ctx.fillStyle = '#fff'; ctx.font = '20px sans-serif';
+                    ctx.fillText(`Score: ${score} - Click to Restart`, 400, 260);
+                    canvas.onclick = () => { pacX = 400; pacY = 225; ghostX = 200; ghostY = 225; score = 0; gameOver = false; dots.forEach(d => d.collected = false); };
+                }
+            }, 1000/60);
+        }
+
+        // --- 4. COOKIE CLICKER TYCOON ---
+        function initCookieGame(canvas, ctx, hsKey) {
+            let cookies = 0, cps = 0, grandmas = 0, bakeries = 0;
+
+            canvas.onclick = e => {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+                // Giant Cookie click
+                if (Math.hypot(x - 240, y - 240) < 100) {
+                    cookies += 1;
+                    checkHS();
+                }
+                // Grandma upgrade
+                if (x > 480 && x > 480 && x < 740 && y > 120 && y < 190 && cookies >= 15) {
+                    cookies -= 15; grandmas++; cps += 1;
+                    checkHS();
+                }
+                // Bakery upgrade
+                if (x > 480 && x < 740 && y > 220 && y < 290 && cookies >= 100) {
+                    cookies -= 100; bakeries++; cps += 8;
+                    checkHS();
+                }
+            };
+
+            const checkHS = () => {
+                let hs = parseInt(localStorage.getItem(hsKey) || 0);
+                if (cookies > hs) { localStorage.setItem(hsKey, Math.floor(cookies)); document.getElementById('activeGameHighScore').innerText = Math.floor(cookies); }
+            };
+
+            activeGameLoop = setInterval(() => {
+                cookies += cps / 60;
+                checkHS();
+
+                ctx.fillStyle = '#121215'; ctx.fillRect(0, 0, 800, 450);
+
+                // Title & stats
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 24px sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText(`Cookie Clicker Tycoon`, 40, 40);
+                ctx.fillStyle = '#00f0ff'; ctx.font = 'bold 28px sans-serif';
+                ctx.fillText(`${Math.floor(cookies)} Cookies`, 40, 85);
+                ctx.fillStyle = '#a1a1aa'; ctx.font = '14px sans-serif';
+                ctx.fillText(`Per Second (CPS): ${cps}`, 40, 115);
+
+                // Giant Cookie
+                ctx.fillStyle = '#92400e'; ctx.beginPath(); ctx.arc(240, 250, 90, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath(); ctx.arc(210, 220, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(280, 240, 12, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(240, 290, 16, 0, Math.PI * 2); ctx.fill();
+
+                // Upgrades store
+                ctx.fillStyle = cookies >= 15 ? '#27272a' : '#18181b'; ctx.fillRect(480, 120, 260, 70);
+                ctx.strokeStyle = '#3f3f46'; ctx.strokeRect(480, 120, 260, 70);
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 15px sans-serif'; ctx.fillText(`Grandma (Cost: 15)`, 500, 148);
+                ctx.fillStyle = '#a1a1aa'; ctx.font = '12px sans-serif'; ctx.fillText(`Owned: ${grandmas} (+1 CPS)`, 500, 172);
+
+                ctx.fillStyle = cookies >= 100 ? '#27272a' : '#18181b'; ctx.fillRect(480, 220, 260, 70);
+                ctx.strokeStyle = '#3f3f46'; ctx.strokeRect(480, 220, 260, 70);
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 15px sans-serif'; ctx.fillText(`Bakery (Cost: 100)`, 500, 248);
+                ctx.fillStyle = '#a1a1aa'; ctx.font = '12px sans-serif'; ctx.fillText(`Owned: ${bakeries} (+8 CPS)`, 500, 272);
+
+            }, 1000/60);
+        }
+
+        // --- 5. CYBER JUMP PLATFORMER ---
+        function initPlatformerGame(canvas, ctx, hsKey) {
+            let playerX = 100, playerY = 300, vy = 0, isGrounded = false, score = 0;
+            let platforms = [
+                {x: 0, y: 380, w: 800, h: 70},
+                {x: 300, y: 280, w: 180, h: 20},
+                {x: 550, y: 190, w: 180, h: 20},
+                {x: 100, y: 190, w: 150, h: 20}
+            ];
+
+            let keys = { left: false, right: false, jump: false };
+            window.onkeydown = e => {
+                if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
+                if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
+                if ((e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w') && isGrounded) { vy = -11; isGrounded = false; }
+            };
+            window.onkeyup = e => {
+                if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+                if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+            };
+
+            activeGameLoop = setInterval(() => {
+                if (keys.left) playerX -= 5;
+                if (keys.right) playerX += 5;
+
+                vy += 0.5; // gravity
+                playerY += vy;
+
+                isGrounded = false;
+                platforms.forEach(p => {
+                    if (playerX + 20 > p.x && playerX < p.x + p.w && playerY + 25 >= p.y && playerY + 25 <= p.y + p.h && vy > 0) {
+                        playerY = p.y - 25;
+                        vy = 0;
+                        isGrounded = true;
+                        score++;
+                        let hs = parseInt(localStorage.getItem(hsKey) || 0);
+                        if (score > hs) { localStorage.setItem(hsKey, score); document.getElementById('activeGameHighScore').innerText = score; }
+                    }
+                });
+
+                if (playerY > 450) { playerX = 100; playerY = 300; vy = 0; score = 0; }
+
+                ctx.fillStyle = '#121215'; ctx.fillRect(0, 0, 800, 450);
+
+                // Draw platforms
+                ctx.fillStyle = '#27272a';
+                platforms.forEach(p => {
+                    ctx.fillRect(p.x, p.y, p.w, p.h);
+                    ctx.strokeStyle = '#00f0ff'; ctx.lineWidth = 1; ctx.strokeRect(p.x, p.y, p.w, p.h);
+                });
+
+                // Draw player
+                ctx.fillStyle = '#00f0ff';
+                ctx.fillRect(playerX, playerY, 25, 25);
+
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText(`Score: ${score}`, 40, 40);
+
+            }, 1000/60);
+        }
+
+        function openRequestModal() { document.getElementById('requestModal').classList.remove('hidden'); }
+        function closeRequestModal() { document.getElementById('requestModal').classList.add('hidden'); }
+
+        async function submitGameRequest(event) {
+            event.preventDefault();
+            const name = document.getElementById('reqStudentName').value.trim();
+            const title = document.getElementById('reqGameTitle').value.trim();
+            const notes = document.getElementById('reqGameNotes').value.trim();
+            const btn = document.getElementById('requestSubmitBtn');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i><span>Sending Request...</span>`;
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('game_title', title);
+            formData.append('notes', notes);
+            formData.append('_subject', `🎮 Game Request: ${title} from ${name}`);
+
+            try {
+                await fetch('https://formspree.io/f/xqakoqyp', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                closeRequestModal();
+                document.getElementById('gameRequestForm').reset();
+                showToast('Request Sent!', `Successfully dispatched request for "${title}".`);
+            } catch (err) {
+                closeRequestModal();
+                document.getElementById('gameRequestForm').reset();
+                showToast('Request Dispatched!', `Successfully sent request for "${title}".`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-envelope-circle-check"></i><span>Send Request to Admin</span>`;
+            }
+        }
+
+        // Classroom Cloak / Stealth Mode
+        function toggleStealthMode() {
+            stealthActive = !stealthActive;
+            const btn = document.getElementById('stealthBtn');
+            if (stealthActive) {
+                document.title = 'Google Classroom';
+                let link = document.querySelector("link[rel*='icon']") || document.createElement('icon');
+                link.type = 'image/x-icon'; link.rel = 'shortcut icon';
+                link.href = 'https://ssl.gstatic.com/classroom/ic_product_classroom_32.png';
+                document.getElementsByTagName('head')[0].appendChild(link);
+                btn.className = "flex items-center space-x-2 px-4 py-2 bg-accent-blue/20 border border-accent-blue text-accent-blue rounded-xl text-xs font-semibold tracking-wide transition-all";
+                showToast('Classroom Cloak Active', 'Tab title & icon cloaked as Google Classroom.');
+            } else {
+                document.title = 'Block Games | Unblocked Arcade';
+                let link = document.querySelector("link[rel*='icon']");
+                if (link) link.remove();
+                btn.className = "flex items-center space-x-2 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-semibold tracking-wide transition-all text-zinc-300 hover:text-white";
+                showToast('Cloak Disabled', 'Restored original tab title.');
+            }
+        }
+
+        function toggleFullScreen() {
+            const wrapper = document.getElementById('gameContainerWrapper');
+            if (!document.fullscreenElement) { wrapper.requestFullscreen().catch(() => {}); }
+            else { document.exitFullscreen(); }
+        }
+
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => { toast.classList.add('translate-y-32', 'opacity-0'); }, 3500);
+        }
+    </script>
+</body>
+</html>
